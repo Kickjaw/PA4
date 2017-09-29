@@ -6,11 +6,11 @@
 
 CXXFLAGS = -g -Wall -fmessage-length=0
 
-OBJS =	Lab4_example.o SortedList.o
+OBJS =	classes.o simulation.o
 
 LIBS =
 
-TARGET =	Lab4_example
+TARGET =	qSim
 
 $(TARGET):	$(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS) $(LIBS)

@@ -3,6 +3,9 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include "classes.h"
+#include "classes.cpp"
+#include <iostream>
 
 /**
  * Generate Customers
@@ -18,11 +21,20 @@ eventQueue generateCustomers(int customers, long length, eventQueue queue) {
 	float time;
 	for (int i = 0; i < customers; i++) {
 		time = length*rand()/float(RAND_MAX);
-		queue.insertEvent(time);
+		event *e = new customerEvent(time);
+		e -> customerNumber = i; //incriments
+		queue.insertEvent(e);
 	}
 
 }
 
-void main(void){
+int main(void){
+	int customers = 100;
+	long length = 1000;
+	eventQueue E;
+
+	generateCustomers(customers, length, E);
+
+	E.printEventQueue();
 	
 }
