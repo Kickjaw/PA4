@@ -128,14 +128,17 @@ int customerEvent::check(void) {
 }
 
 void tellerQueue::insertEventEnd(event *e) {
-	printf("trying to inster event\n");
+
+	event *temp = new event();
+	e -> next = NULL;
+
 	if (!head) {
 		head = e;
 	}
 
 	else {
-		event *temp = head;
-		while (!(temp -> next)) {
+		temp = head;
+		while (temp -> next) {
 			temp = temp -> next;
 		}
 		e -> next = temp -> next;
@@ -143,5 +146,14 @@ void tellerQueue::insertEventEnd(event *e) {
 	}
 }
 
+
+void eventQueue::removeHeadEvent(void) {
+	event *temp = new event();
+	temp = head -> next;
+	head = temp;
+
+
+
+}
 
 

@@ -45,7 +45,7 @@ eventQueue generateTellers(int tellers, eventQueue queue) {
 int main(void){
 	int tellers = 5;
 	long clock = 0;
-	int customers = 100;
+	int customers = 10;
 	long length = 1000;
 	eventQueue E;
 	tellerQueue T;
@@ -54,35 +54,48 @@ int main(void){
 
 	E.printEventQueue();
 
+	T.insertEventEnd(E.head);
+	T.insertEventEnd(E.head);
+	T.insertEventEnd(E.head);
+	printf("hi\n");
+	E.removeHeadEvent();
+	printf("hi2\n");
+
+	T.printEventQueue();
+	printf("hi3\n");
+
+	E.printEventQueue();
+
 	//E = generateTellers(tellers, E);
 
 	//E.printEventQueue();
 	
 	
-	switch(E.head->check()){
-		/*
-		0 = event: should not arise, all events should be either customer or teller
-		1 = customerEvent: arriving
-		2 = customerEvent: inline(shouldnt come up)
-		3 = customerEvent: customer finished in the bank
-		6 = tellerEvent: teller has either finished servering customer, or is back from break, check for customer in teller line
-		default = catch all, should not come up 
-		*/
-		case 0:
-			printf("generic event in queue, something went wrong\n");
-		case 1:
-			//place customer in teller queue
-			T.insertEventEnd(E.head);
-		case 2:
-			printf("customer inline while in event queue, something went wrong\n");
-		case 3:
-			//customer finished, gather statistics about and remove from queue
-		case 6:
-			//have teller serach his respective queue or the general queue for a customer to searve
-			printf("teller check\n");
-		// default:
-		// 	printf("Something other \n");
-		}
+	// switch(E.head->check()){
+	// 	/*
+	// 	0 = event: should not arise, all events should be either customer or teller
+	// 	1 = customerEvent: arriving
+	// 	2 = customerEvent: inline(shouldnt come up)
+	// 	3 = customerEvent: customer finished in the bank
+	// 	6 = tellerEvent: teller has either finished servering customer, or is back from break, check for customer in teller line
+	// 	default = catch all, should not come up 
+	// 	*/
+	// 	case 0:
+	// 		printf("generic event in queue, something went wrong\n");
+	// 	case 1:
+	// 		//place customer in teller queue
+	// 		T.insertEventEnd(E.head);
+	// 	case 2:
+	// 		printf("customer inline while in event queue, something went wrong\n");
+	// 	case 3:
+	// 		//customer finished, gather statistics about and remove from queue
+	// 	case 6:
+	// 		//have teller serach his respective queue or the general queue for a customer to searve
+	// 		printf("teller check\n");
+	// 	// default:
+	// 	// 	printf("Something other \n");
+	// 	}
+
 
 
 
