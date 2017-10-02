@@ -4,20 +4,26 @@ file to hold all of the class structures for PA4
 made by Jared Perkins 9/25/2017
 */
 
-
-
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
 #include "classes.h"
 
 
-//construtor
+event::event() {
+	time = 0;
+	next = NULL;
+}
+
 eventQueue::eventQueue() {
 	head = NULL;
 }
- 
-//deconstructor
+
+customerEvent::customerEvent() {
+	next = NULL;
+}
+
+
 eventQueue::~eventQueue() {
 	event *e = head;
 	while(!e) {
@@ -26,7 +32,6 @@ eventQueue::~eventQueue() {
 		e = temp;
 	}
 }
-
 
 /**
  * insert customer event into event queue
@@ -55,17 +60,56 @@ void eventQueue::insertEvent(event *e) {
 
 }
 
+void printEvent(event *e) {
+	std::cout << e -> time << " ";
+}
+
+void printEvent(tellerEvent *t) {
+	std::cout << t -> time << " ";
+	printf("Teller\n");
+
+}
+
+void printEvent(customerEvent *c) {
+	std::cout << c -> time << " ";
+	printf("Customer\n");
+
+}
 
 void eventQueue::printEventQueue(void) {
 	printLastEvents(head);
 	std::cout << std ::endl;
 }
 
+
 void eventQueue::printLastEvents(event *e) {
 	if (e -> next) {
 		printLastEvents(e -> next);
 	}
-	std::cout << e -> time << " ";
+	printEvent(e);
+}
+
+void check(void) {
+	printf("default check\n");
+}
+
+void check(tellerEvent *e) {
+	//check teller queue for customer
+	//if yse serve them, changed finished to true and send back into event queue anding serve time
+	printf("checked tellerEvent\n");
+}
+
+
+void check(customerEvent *e) {
+	if (e -> arriving) {
+		//send to a line
+	}
+	if (e -> inLine) {
+		//customer got to front of teller queue, send to teller, not time based
+	}
+	if (e -> finished) {
+		//gather statistics and delete event
+	}
 }
 
 

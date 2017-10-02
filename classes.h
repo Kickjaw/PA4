@@ -10,18 +10,26 @@
 #include <cstdio>
 #include <cstdlib>
 
+
 class event { //internal class event, objects that make up eventQueue
 public:
 
 	int time; //time at which the event will happen
-	event *next;  //next item in the eventQueue
 
-	//virtual action()
+	event *next;  //next item in the eventQueue
+	void action();
+
+	void check(); //check what the status of the event is
+	event();
+	void printEvent(event *e);
 
 	inline event(int time) : time(time), next(NULL) {}; //????
 private:
 	
 };
+
+
+
 
 class eventQueue {
 public:
@@ -33,22 +41,49 @@ public:
 //private:
 	event *head; 
 
-
 	void printLastEvents(event *e);
 
 
-	
 };
+
+
+
 
 class customerEvent: public event { //type of event
+
 public:
-	int customerNumber; //helps tell customers aprat
+	customerEvent();
+
+	int cusNum; //helps tell customers aprat
+	int arrivalTime; //time of arrival
+	bool arriving; //did he just come int
+	bool inLine; //customer in line for teller
+	bool finished; //customer was served and is leaving
+
+	void check(customerEvent *c);
+
+	void printEvent(customerEvent *c);
 
 };
+
+
 
 class tellerEvent: public event { //type of event
 public:
 	int idleTime; //time that the teller will idle for
+
+	void printEvent(tellerEvent *t);
+
+	void check(tellerEvent *t);
+
+
+
+};
+
+
+class tellerQueue: public eventQueue {
+public:
+	int length;
 
 };
 
