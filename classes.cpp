@@ -20,7 +20,11 @@ eventQueue::eventQueue() {
 }
 
 customerEvent::customerEvent() {
-	next = NULL;
+	cusNum = 0;
+	arrivalTime = 0;
+	arriving = false;
+	inLine = false;
+	finished = false;
 }
 
 
@@ -60,18 +64,19 @@ void eventQueue::insertEvent(event *e) {
 
 }
 
-void printEvent(event *e) {
-	std::cout << e -> time << " ";
+void event::printEvent(void) {
+	std::cout << time << " ";
 }
 
-void printEvent(tellerEvent *t) {
-	std::cout << t -> time << " ";
+void tellerEvent::printEvent(void) {
+	std::cout << time << " ";
 	printf("Teller\n");
 
 }
 
-void printEvent(customerEvent *c) {
-	std::cout << c -> time << " ";
+void customerEvent::printEvent(void) {
+	std::cout << time << " ";
+	std::cout << cusNum << " ";
 	printf("Customer\n");
 
 }
@@ -81,12 +86,14 @@ void eventQueue::printEventQueue(void) {
 	std::cout << std ::endl;
 }
 
-
+/** cycles through the point next in event if next is not null, if null prints event
+* prints out in revesre order of how the queue is made
+*/
 void eventQueue::printLastEvents(event *e) {
 	if (e -> next) {
 		printLastEvents(e -> next);
 	}
-	printEvent(e);
+	e->printEvent();
 }
 
 void check(void) {

@@ -21,9 +21,10 @@ eventQueue generateCustomers(int customers, long length, eventQueue queue) {
 	for (int i = 0; i < customers; i++) {
 		time = length*rand()/float(RAND_MAX);
 		customerEvent *e = new customerEvent();
-		e -> time = time;
-		e -> arrivalTime = true;
-		e -> cusNum = i; //incriments
+		e -> time = time; //sets the event time to the time it is set to arrive
+		e -> arrivalTime = time;// sets the arival time to the time in which it was set to arrive
+		e -> arriving = true; //sets boolean that it is arriving to true
+		e -> cusNum = i; //incriments to help keep track of different customers
 		queue.insertEvent(e);
 	}
 	return queue;
@@ -35,7 +36,7 @@ eventQueue generateTellers(int tellers, eventQueue queue) {
 	for (int i = 0; i < tellers; i ++) {
 		tellerEvent *t = new tellerEvent();
 		t -> idleTime = rand() % 150 + 1;
-		t -> time = time;
+		t -> time = time; //set all the tellers to be at the front of the event queue
 		queue.insertEvent(t);
 	}
 	return queue;
@@ -56,17 +57,18 @@ int main(void){
 	E.printEventQueue();
 	
 
-
-	while(clock != length) {
-		E.head->check();
+	
 
 
 		//check what event is at the front of the queue
 		//do the corrisponding action of that event
 			//if event is customer check boolean to see what to do
+				//if set to arriving send to teller queu
+				//if set to inline somthing is wrong
+				//if set to finished 
+					//gather stats and remove event from queue and delete it
 			//if event is teller check teller queue for a customer
 				//if customer server customer and throw back into event queue with finish time
 				//if no customer send teller back into event queue with idle time
 
-	}
 }

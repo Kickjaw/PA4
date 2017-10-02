@@ -21,7 +21,7 @@ public:
 
 	void check(); //check what the status of the event is
 	event();
-	void printEvent(event *e);
+	virtual void printEvent(void);
 
 	inline event(int time) : time(time), next(NULL) {}; //????
 private:
@@ -62,7 +62,7 @@ public:
 
 	void check(customerEvent *c);
 
-	void printEvent(customerEvent *c);
+	virtual void printEvent(void);
 
 };
 
@@ -72,7 +72,7 @@ class tellerEvent: public event { //type of event
 public:
 	int idleTime; //time that the teller will idle for
 
-	void printEvent(tellerEvent *t);
+	virtual void printEvent(void);
 
 	void check(tellerEvent *t);
 
