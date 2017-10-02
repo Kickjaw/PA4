@@ -17,9 +17,8 @@ public:
 	int time; //time at which the event will happen
 
 	event *next;  //next item in the eventQueue
-	void action();
 
-	void check(); //check what the status of the event is
+	virtual int check(void); //check what the status of the event is
 	event();
 	virtual void printEvent(void);
 
@@ -60,7 +59,7 @@ public:
 	bool inLine; //customer in line for teller
 	bool finished; //customer was served and is leaving
 
-	void check(customerEvent *c);
+	virtual int check(void);
 
 	virtual void printEvent(void);
 
@@ -72,9 +71,11 @@ class tellerEvent: public event { //type of event
 public:
 	int idleTime; //time that the teller will idle for
 
+	virtual int check(void);
+
 	virtual void printEvent(void);
 
-	void check(tellerEvent *t);
+
 
 
 

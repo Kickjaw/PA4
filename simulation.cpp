@@ -56,7 +56,7 @@ int main(void){
 
 	E.printEventQueue();
 	
-
+	printf("%i\n", E.head->check() );
 	
 
 

@@ -96,27 +96,30 @@ void eventQueue::printLastEvents(event *e) {
 	e->printEvent();
 }
 
-void check(void) {
+int event::check(void) {
 	printf("default check\n");
+	return 0;
 }
 
-void check(tellerEvent *e) {
+int tellerEvent::check(void) {
 	//check teller queue for customer
 	//if yse serve them, changed finished to true and send back into event queue anding serve time
 	printf("checked tellerEvent\n");
+	return 6;
 }
 
 
-void check(customerEvent *e) {
-	if (e -> arriving) {
+int customerEvent::check(void) {
+	if (arriving) {
 		//send to a line
 	}
-	if (e -> inLine) {
+	if (inLine) {
 		//customer got to front of teller queue, send to teller, not time based
 	}
-	if (e -> finished) {
+	if (finished) {
 		//gather statistics and delete event
 	}
+	return 1;
 }
 
 
