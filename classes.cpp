@@ -77,6 +77,9 @@ void tellerEvent::printEvent(void) {
 void customerEvent::printEvent(void) {
 	std::cout << time << " ";
 	std::cout << cusNum << " ";
+	std::cout << arriving << " ";
+	std::cout << inLine << " ";
+	std::cout << finished << " ";
 	printf("Customer\n");
 
 }
@@ -104,7 +107,6 @@ int event::check(void) {
 int tellerEvent::check(void) {
 	//check teller queue for customer
 	//if yse serve them, changed finished to true and send back into event queue anding serve time
-	printf("checked tellerEvent\n");
 	return 6;
 }
 
@@ -112,14 +114,33 @@ int tellerEvent::check(void) {
 int customerEvent::check(void) {
 	if (arriving) {
 		//send to a line
+		return 1;
 	}
 	if (inLine) {
 		//customer got to front of teller queue, send to teller, not time based
+		return 2;
 	}
 	if (finished) {
 		//gather statistics and delete event
+		return 3;
 	}
 	return 1;
+}
+
+void tellerQueue::insertEventEnd(event *e) {
+	printf("trying to inster event\n");
+	if (!head) {
+		head = e;
+	}
+
+	else {
+		event *temp = head;
+		while (!(temp -> next)) {
+			temp = temp -> next;
+		}
+		e -> next = temp -> next;
+		temp -> next = e;
+	}
 }
 
 

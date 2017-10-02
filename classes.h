@@ -86,6 +86,8 @@ class tellerQueue: public eventQueue {
 public:
 	int length;
 
+	void insertEventEnd(event *e);
+
 };
 
 
