@@ -34,7 +34,7 @@ class eventQueue {
 public:
 	void insertEvent(event *e); //method to add item to event queue in order
 	void printEventQueue(void);
-	void removeHeadEvent(void);
+	event* pop(void);
 
 	eventQueue(); //constructor	
 	~eventQueue(); //deconstructor

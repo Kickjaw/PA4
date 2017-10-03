@@ -141,19 +141,16 @@ void tellerQueue::insertEventEnd(event *e) {
 		while (temp -> next) {
 			temp = temp -> next;
 		}
-		e -> next = temp -> next;
 		temp -> next = e;
 	}
 }
 
 
-void eventQueue::removeHeadEvent(void) {
+
+event* eventQueue::pop(void) {
 	event *temp = new event();
-	temp = head -> next;
-	head = temp;
-
-
-
+	temp = head;
+	head = head -> next;
+	return temp;
 }
-
 
