@@ -154,3 +154,26 @@ event* eventQueue::pop(void) {
 	return temp;
 }
 
+void event::cycleState(void) {
+	printf("defualt event cycle, shouldnt be here\n");
+}
+
+void customerEvent::cycleState(void) {
+	if (arriving){
+		arriving = false;
+		inLine = true;
+	}
+	else if (inLine) {
+		inLine = false;
+		finished = true;
+	}
+	else if (finished) {
+		printf("delete event here\n");
+	}
+}
+/*
+ *
+ * takes in the teller event and the customer event and puts them back into the 
+ * event queue at their respective completion times
+ */
+

@@ -42,6 +42,8 @@ eventQueue generateTellers(int tellers, eventQueue queue) {
 	return queue;
 }
 
+
+
 // tellerQueue generateTellerQueues(int tellers) {
 // 	tQueues [tellers];
 // 	for (int i = 0; i < tellers; i++) {
@@ -62,11 +64,11 @@ int main(void){
 
 
 	E = generateCustomers(customers, length, E);
-	E = generateTellers(tellers, E);
+	//E = generateTellers(tellers, E);
 
 	E.printEventQueue();
 	
-	
+	for (int i = 0; i < 5; i++) {
 	switch(E.head->check()){
 		/*
 		0 = event: should not arise, all events should be either customer or teller
@@ -82,6 +84,8 @@ int main(void){
 		case 1:
 			//place customer in teller queue
 			printf("place customer in telller queue\n");
+			E.head->cycleState();
+			T.insertEventEnd(E.pop());
 			break;
 		case 2:
 			printf("customer inline while in event queue, something went wrong\n");
@@ -92,12 +96,19 @@ int main(void){
 			break;
 		case 6:
 			//have teller serach his respective queue or the general queue for a customer to searve
+			if (!T.head) {
+
+
+			}
 			printf("teller check\n");
 			break;
 		default:
 			printf("Something other \n");
 			break;
 		}
+	}
+
+	T.printEventQueue();
 
 
 
