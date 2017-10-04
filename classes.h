@@ -20,9 +20,11 @@ public:
 
 	virtual void cycleState(void);
 	virtual int getArrivalTime(void);
+	virtual int getIdleTime(void);
 
 	virtual int check(void); //check what the status of the event is
 	event();
+	virtual ~event();
 	virtual void printEvent(void);
 
 	inline event(int time) : time(time), next(NULL) {}; //????
@@ -40,7 +42,7 @@ public:
 	event* pop(void);
 
 	eventQueue(); //constructor	
-	~eventQueue(); //deconstructor
+	virtual ~eventQueue(); //deconstructor
 //private:
 	event *head; 
 
@@ -78,8 +80,10 @@ public:
 class tellerEvent: public event { //type of event
 public:
 	int idleTime; //time that the teller will idle for
+	int tellerNumber;
 
 	virtual int check(void);
+	virtual int getIdleTime(void);
 
 	virtual void printEvent(void);
 
@@ -93,6 +97,7 @@ public:
 class tellerQueue: public eventQueue {
 public:
 	int length;
+
 
 	void insertEventEnd(event *e);
 

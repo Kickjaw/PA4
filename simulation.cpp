@@ -37,6 +37,7 @@ eventQueue generateTellers(int tellers, eventQueue queue) {
 		tellerEvent *t = new tellerEvent();
 		t -> idleTime = rand() % 150 + 1;
 		t -> time = time; //set all the tellers to be at the front of the event queue
+		t -> tellerNumber = i;
 		queue.insertEvent(t);
 	}
 	return queue;
@@ -50,13 +51,10 @@ eventQueue generateTellers(int tellers, eventQueue queue) {
 // 		tellerQueue *queue = new tellerQueue();
 // 		tQueues[i] = queue;
 // 	}
-// 	return tQueues;
+// 	return tQueues;make
 // }
 
 int main(void){
-
-
-
 
 	int tellers = 5;
 	int customerServed = 0;
@@ -69,7 +67,6 @@ int main(void){
 	int waitTimeAverage =0;
 	int counter = 0;
 	long clock = 0;
-	int idle = 150;
 	int customers = 10;
 	long length = 1000;
 	int service  = 200; // change this later
@@ -77,7 +74,10 @@ int main(void){
 	tellerQueue T;
 	T.head = NULL;
 
-
+	tellerQueue *tQueues[tellers];
+	for (int i =0; i < tellers; i++) {
+		tQueues[i] = new tellerQueue();
+	}
 
 	E = generateCustomers(customers, length, E);
 	E = generateTellers(tellers, E);
@@ -133,7 +133,7 @@ int main(void){
 
 				totalTellerSeviceTime = totalTellerSeviceTime + service;
 
-				waitTimeAverage = waitTimeAverage + (clock - temp -> getArrivalTime();)
+				waitTimeAverage = waitTimeAverage + (clock - temp -> getArrivalTime());
 
 				if ((clock - temp -> getArrivalTime()) > maxWaitTime) {
 					maxWaitTime = (clock - temp -> getArrivalTime());
@@ -142,11 +142,11 @@ int main(void){
 			else {
 				event *tTemp = new event();
 				tTemp = E.pop();
-				tTemp -> time = tTemp -> time + idle;
+				tTemp -> time = tTemp -> time + tTemp->getIdleTime();
 				E.insertEvent(tTemp);
 				printf("no customer in queue\n");
 
-				totalTellerIdleTime = totalTellerIdleTime + idle;
+				totalTellerIdleTime = totalTellerIdleTime + tTemp->getIdleTime();
 
 			}
 			printf("teller check\n");
@@ -163,8 +163,8 @@ int main(void){
 
 	printf("The queue type is a single queue for all the tellers.\n");
 	printf("Total number of customer served in the time frame is %i. \n", customerServed);
-	printf("Time to serve all customers input into simulation is %i in seconds. \n", clock);
-	printf("Average time customers spent in the bank is %i and the standard deviation is %i.\n", averageTimeSpent, standarddeviation );
+	printf("Time to serve all customers input into simulation is %d in seconds. \n", clock);
+	printf("Average time customers spent in the bank is %ld and the standard deviation is %i.\n", averageTimeSpent, standarddeviation );
 	printf("The maximum wait time for a customer to be seen is %i.\n", maxWaitTime);
 	printf("Total amount of teller service time is %i.\n", totalTellerSeviceTime);
 	printf("Total amount of teller idle time is %i.\n", totalTellerIdleTime);

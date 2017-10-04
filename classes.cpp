@@ -38,6 +38,10 @@ eventQueue::~eventQueue() {
 	}
 }
 
+event::~event() {
+	delete next;
+}
+
 /**
  * insert customer event into event queue
  * @param takes in the event time and adds the event to the list
@@ -180,4 +184,12 @@ int event::getArrivalTime(void) {
 
 int customerEvent::getArrivalTime(void) {
 	return arrivalTime;
+}
+
+int event::getIdleTime(void) {
+	return 0;
+}
+
+int tellerEvent::getIdleTime(void) {
+	return idleTime;
 }
