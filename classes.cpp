@@ -19,6 +19,7 @@ eventQueue::eventQueue() {
 	head = NULL;
 }
 
+
 customerEvent::customerEvent() {
 	cusNum = 0;
 	arrivalTime = 0;
@@ -154,6 +155,7 @@ event* eventQueue::pop(void) {
 	return temp;
 }
 
+
 void event::cycleState(void) {
 	printf("defualt event cycle, shouldnt be here\n");
 }
@@ -171,9 +173,11 @@ void customerEvent::cycleState(void) {
 		printf("delete event here\n");
 	}
 }
-/*
- *
- * takes in the teller event and the customer event and puts them back into the 
- * event queue at their respective completion times
- */
 
+int event::getArrivalTime(void) {
+	return 0;
+}
+
+int customerEvent::getArrivalTime(void) {
+	return arrivalTime;
+}

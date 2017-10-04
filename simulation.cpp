@@ -54,21 +54,36 @@ eventQueue generateTellers(int tellers, eventQueue queue) {
 // }
 
 int main(void){
+
+
+
+
 	int tellers = 5;
+	int customerServed = 0;
+	int totalTimeToServe = 0;
+	int averageTimeSpent = 0;
+	int standarddeviation = 0;
+	int totalTellerSeviceTime = 0;
+	int totalTellerIdleTime = 0;
+	int maxWaitTime = 0;
+	int waitTimeAverage =0;
+	int counter = 0;
 	long clock = 0;
+	int idle = 150;
 	int customers = 10;
 	long length = 1000;
+	int service  = 200; // change this later
 	eventQueue E;
 	tellerQueue T;
+	T.head = NULL;
 
 
 
 	E = generateCustomers(customers, length, E);
-	//E = generateTellers(tellers, E);
+	E = generateTellers(tellers, E);
 
 	E.printEventQueue();
-	
-	for (int i = 0; i < 5; i++) {
+	while (counter != customers) {
 	switch(E.head->check()){
 		/*
 		0 = event: should not arise, all events should be either customer or teller
@@ -84,6 +99,7 @@ int main(void){
 		case 1:
 			//place customer in teller queue
 			printf("place customer in telller queue\n");
+			clock = E.head->time;
 			E.head->cycleState();
 			T.insertEventEnd(E.pop());
 			break;
@@ -92,12 +108,45 @@ int main(void){
 			break;
 		case 3:
 			//customer finished, gather statistics about and remove from queue
+			clock = E.head->time;
 			printf("customer finished\n");
+			if (clock < length) { //if within simulatino time frame increment customer served
+				customerServed++; 
+			}
+			E.pop();
+			counter++;
 			break;
 		case 6:
 			//have teller serach his respective queue or the general queue for a customer to searve
-			if (!T.head) {
+			clock = E.head->time;
+			if (T.head != NULL) {
+				event *temp = new event();
+				temp = T.pop();
+				temp -> cycleState();//changes state
+				temp -> time = temp -> time + service; //adds the time to be serviced
+				E.insertEvent(temp); //sends it back into the event queue
 
+				event *tTemp = new event();
+				tTemp = E.pop();
+				tTemp -> time = tTemp -> time + service;
+				E.insertEvent(tTemp);
+
+				totalTellerSeviceTime = totalTellerSeviceTime + service;
+
+				waitTimeAverage = waitTimeAverage + (clock - temp -> getArrivalTime();)
+
+				if ((clock - temp -> getArrivalTime()) > maxWaitTime) {
+					maxWaitTime = (clock - temp -> getArrivalTime());
+				}
+			}
+			else {
+				event *tTemp = new event();
+				tTemp = E.pop();
+				tTemp -> time = tTemp -> time + idle;
+				E.insertEvent(tTemp);
+				printf("no customer in queue\n");
+
+				totalTellerIdleTime = totalTellerIdleTime + idle;
 
 			}
 			printf("teller check\n");
@@ -106,9 +155,19 @@ int main(void){
 			printf("Something other \n");
 			break;
 		}
+		E.printEventQueue();
 	}
 
-	T.printEventQueue();
+
+	printf("The number of tellers in the simulaton is %i.\n", tellers );
+
+	printf("The queue type is a single queue for all the tellers.\n");
+	printf("Total number of customer served in the time frame is %i. \n", customerServed);
+	printf("Time to serve all customers input into simulation is %i in seconds. \n", clock);
+	printf("Average time customers spent in the bank is %i and the standard deviation is %i.\n", averageTimeSpent, standarddeviation );
+	printf("The maximum wait time for a customer to be seen is %i.\n", maxWaitTime);
+	printf("Total amount of teller service time is %i.\n", totalTellerSeviceTime);
+	printf("Total amount of teller idle time is %i.\n", totalTellerIdleTime);
 
 
 

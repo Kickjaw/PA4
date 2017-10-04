@@ -19,6 +19,7 @@ public:
 	event *next;  //next item in the eventQueue
 
 	virtual void cycleState(void);
+	virtual int getArrivalTime(void);
 
 	virtual int check(void); //check what the status of the event is
 	event();
@@ -57,6 +58,8 @@ public:
 	customerEvent();
 
 	virtual void cycleState(void);
+
+	virtual int getArrivalTime(void);
 
 	int cusNum; //helps tell customers aprat
 	int arrivalTime; //time of arrival
