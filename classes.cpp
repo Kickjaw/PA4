@@ -35,9 +35,25 @@ customerEvent::customerEvent() {
 }
 
 /**
+ * tellerQueue constructor
+ */
+tellerQueue::tellerQueue() {
+	head = NULL;
+}
+
+/**
  *event Queue decontructor
  */
 eventQueue::~eventQueue() {
+	event *e = head;
+	while(!e) {
+		event *temp = e -> next;
+		delete e;
+		e = temp;
+	}
+}
+
+tellerQueue::~tellerQueue() {
 	event *e = head;
 	while(!e) {
 		event *temp = e -> next;
@@ -50,7 +66,7 @@ eventQueue::~eventQueue() {
  * event deconstructor
  */
 event::~event() {
-	delete next;
+	next = NULL;
 }
 
 /**

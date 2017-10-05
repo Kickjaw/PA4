@@ -101,6 +101,8 @@ public:
 	int length;
 	int getLength(void);
 
+	tellerQueue();
+	~tellerQueue();
 
 	void insertEventEnd(event *e);
 
