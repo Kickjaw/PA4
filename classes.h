@@ -21,6 +21,7 @@ public:
 	virtual void cycleState(void);
 	virtual int getArrivalTime(void);
 	virtual int getIdleTime(void);
+	virtual int getTellerNumber(void);
 
 	virtual int check(void); //check what the status of the event is
 	event();
@@ -84,6 +85,7 @@ public:
 
 	virtual int check(void);
 	virtual int getIdleTime(void);
+	virtual int getTellerNumber(void);
 
 	virtual void printEvent(void);
 
@@ -97,6 +99,7 @@ public:
 class tellerQueue: public eventQueue {
 public:
 	int length;
+	int getLength(void);
 
 
 	void insertEventEnd(event *e);

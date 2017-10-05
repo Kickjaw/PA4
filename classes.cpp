@@ -9,17 +9,23 @@ made by Jared Perkins 9/25/2017
 #include <iostream>
 #include "classes.h"
 
-
+/**
+ * Event constuctor
+ */
 event::event() {
 	time = 0;
 	next = NULL;
 }
-
+/**
+ * eventQueue contructor
+ */
 eventQueue::eventQueue() {
 	head = NULL;
 }
 
-
+/**
+ * customerEvent constructor
+ */
 customerEvent::customerEvent() {
 	cusNum = 0;
 	arrivalTime = 0;
@@ -28,7 +34,9 @@ customerEvent::customerEvent() {
 	finished = false;
 }
 
-
+/**
+ *event Queue decontructor
+ */
 eventQueue::~eventQueue() {
 	event *e = head;
 	while(!e) {
@@ -38,6 +46,9 @@ eventQueue::~eventQueue() {
 	}
 }
 
+/**
+ * event deconstructor
+ */
 event::~event() {
 	delete next;
 }
@@ -69,16 +80,25 @@ void eventQueue::insertEvent(event *e) {
 
 }
 
+/**
+ * prints out the time of the event
+ */
 void event::printEvent(void) {
 	std::cout << time << " ";
 }
 
+/**
+ * prints out the time of the event
+ */
 void tellerEvent::printEvent(void) {
 	std::cout << time << " ";
+	std::cout << tellerNumber << " ";
 	printf("Teller\n");
 
 }
-
+/**
+ * prints out the time of the evnet, what customer it is, and what state it is in
+ */
 void customerEvent::printEvent(void) {
 	std::cout << time << " ";
 	std::cout << cusNum << " ";
@@ -88,10 +108,14 @@ void customerEvent::printEvent(void) {
 	printf("Customer\n");
 
 }
-
+/**
+ * prints out the whole event quque
+ */
 void eventQueue::printEventQueue(void) {
-	printLastEvents(head);
-	std::cout << std ::endl;
+	if (head != NULL) {
+		printLastEvents(head);
+		std::cout << std ::endl;
+	}
 }
 
 /** cycles through the point next in event if next is not null, if null prints event
@@ -104,18 +128,25 @@ void eventQueue::printLastEvents(event *e) {
 	e->printEvent();
 }
 
+/**
+ * checks the state fo the event, if basic event sends out 0
+ */
 int event::check(void) {
 	printf("default check\n");
 	return 0;
 }
-
+/**
+ * checks to see what kind of event this is
+ */
 int tellerEvent::check(void) {
 	//check teller queue for customer
 	//if yse serve them, changed finished to true and send back into event queue anding serve time
 	return 6;
 }
 
-
+/**
+ * checks what the customer needs to do
+ */
 int customerEvent::check(void) {
 	if (arriving) {
 		//send to a line
@@ -131,7 +162,10 @@ int customerEvent::check(void) {
 	}
 	return 1;
 }
-
+/**
+ * inserts event based on the time, smallest time at the front and longest at the end
+ * @param e event to insert into the event queue
+ */
 void tellerQueue::insertEventEnd(event *e) {
 
 	event *temp = new event();
@@ -150,7 +184,9 @@ void tellerQueue::insertEventEnd(event *e) {
 	}
 }
 
-
+/**
+ * @return event* returns the event at the head of the queue
+ */
 
 event* eventQueue::pop(void) {
 	event *temp = new event();
@@ -159,11 +195,15 @@ event* eventQueue::pop(void) {
 	return temp;
 }
 
-
+/**
+ * head method for event class
+ */
 void event::cycleState(void) {
 	printf("defualt event cycle, shouldnt be here\n");
 }
-
+/**
+ * cycles through the states of the customerEvent
+ */
 void customerEvent::cycleState(void) {
 	if (arriving){
 		arriving = false;
@@ -177,19 +217,38 @@ void customerEvent::cycleState(void) {
 		printf("delete event here\n");
 	}
 }
-
+/**
+ * head method to get arrival time
+ */
 int event::getArrivalTime(void) {
 	return 0;
 }
-
+/**
+ * getter for arrival time for customer event
+ */
 int customerEvent::getArrivalTime(void) {
 	return arrivalTime;
 }
-
+/**
+ * head method to get idle timem
+ */
 int event::getIdleTime(void) {
 	return 0;
 }
-
+/**
+ * getter for idle time of teller event
+ */
 int tellerEvent::getIdleTime(void) {
 	return idleTime;
+}
+
+int tellerQueue::getLength(void) {
+	return length;
+}
+
+int event::getTellerNumber(void) {
+	return 0;
+}
+int tellerEvent::getTellerNumber(void) {
+	return tellerNumber;
 }
